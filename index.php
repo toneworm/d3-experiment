@@ -32,6 +32,22 @@
 		  <div class="col-xs-6 col-sm-3">Some content here&hellip;</div>
 		</div>
 	</div>
+	<div class="container">
+		<div class="svg-container">
+			<svg width="500" height="500">
+				<rect x="0" y="0" width="500" height="50"/>
+				<circle cx="250" cy="100" r="25"/>
+				<ellipse cx="250" cy="175" rx="100" ry="25"/>
+				<line x1="0" y1="200" x2="500" y2="250" stroke="black"/>
+				<text x="250" y="275" fill="black">Testing Text</text>
+				<circle cx="50" cy="325" r="25" fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+				<circle cx="90" cy="325" r="25" fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+				<circle cx="130" cy="325" r="25" fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+				<circle cx="170" cy="325" r="25" fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+				<circle cx="210" cy="325" r="25" fill="rgba(0,0,0,0.5)" stroke="rgba(0,0,0,0.2)" stroke-width="2" />
+			</svg>
+		</div>
+	</div>
 
 	<script type="text/javascript" src="assets/javascripts/main.js"></script>
 </body>
