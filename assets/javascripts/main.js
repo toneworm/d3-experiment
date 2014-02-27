@@ -27,8 +27,11 @@
 		})
 		.attr("fill", function (d, i) {
 			var cm = 50 + Math.round(d / 40 * 150);
-			return "rgb(" + [cm,cm,cm].join() + ")";
-		});
+			return "rgb(" + [Math.round(Math.random()*255),cm,cm].join() + ")";
+		})
+		.on("click", function (d, i) {
+	    	return d;
+	    });
 
  	d3.select(".container")
  		.selectAll("circle")
@@ -42,5 +45,27 @@
 	    	return "rgb(" + colorStr + ")";
 	    })
 	    .text(function(d) { return d; });
+
+	    /*
+
+		Do something with GeoJSON?
+
+		var geodata = {
+		    "type": "FeatureCollection",
+		    "features": [
+		        {
+		            "type": "Feature",
+		            "geometry": {
+		                "type": "Point",
+		                "coordinates": [ 150.1282427, -24.471803 ]
+		            },
+		            "properties": {
+		                "type": "town"
+		            }
+		        }
+		    ]
+		};
+
+	    */
 
 }(jQuery));
