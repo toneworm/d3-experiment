@@ -1,71 +1,97 @@
-(function ($, undefined) {
+(function () {
 
-	var dataset = [ 5, 10, 25, 20, 40 ],
+	var dataset = [ 22, 27, 7, 17, 2, 12, 18, 19, 9, 29, 27, 28, 29, 20, 8, 30, 1, 4, 18, 15, 20, 21, 21, 5, 21, 22 ],
 		datasetMax = Math.max.apply(null, dataset),
-		w = 500,
-		h = 200;
-	
-	var svg = d3.select("body")
-		.append("svg")
-		.attr("width", w)
-		.attr("height", h);
+		w = parseInt(d3.select(".container").style("width")),
+		h = 180,
+		barW = w / dataset.length;
 
-	var circles = svg.selectAll("circle")
-		.data(dataset)
-		.enter()
-		.append("circle");
+	var btn = document.querySelector(".go-btn"),
+		dataBtn = document.querySelector(".data-btn");
 
-	// circles next to eachother, same vertical alignment, distance between them circle next to it
-	circles.attr("cx", function(d, i) {
-			return (i * 50) + 25;
-		})
-		.attr("cy", function (d) {
-			return d * 2;
-		})
-		.attr("r", function (d) {
-			return d;
-		})
-		.attr("fill", function (d, i) {
-			var cm = 50 + Math.round(d / 40 * 150);
-			return "rgb(" + [Math.round(Math.random()*255),cm,cm].join() + ")";
-		})
-		.on("click", function (d, i) {
-	    	return d;
-	    });
+	// bar graph animated
+	// set up bars 0 height (calc width in container and split)
+	// enter data into bars, tada
 
- 	d3.select(".container")
- 		.selectAll("circle")
-	    .data(dataset)
-	    .enter()
-	    .append("p")
-	    .style("background-color", function (d) {
-	    	var color = Math.round(d/20 * 255),
-	    		colorStr = [color, color, color].join();
+	function buildGraph () {
+		var barGraph = d3.select(".bar-graph");
+		if ( barGraph.empty() ) {
 
-	    	return "rgb(" + colorStr + ")";
-	    })
-	    .text(function(d) { return d; });
+			var divs = d3.select(".container")
+						.append("div")
+						.attr("class", "bar-graph")
+						.selectAll("div")
+						.data(dataset)
+						.enter()
+						.append("div");
 
-	    /*
+			divs.attr("class", "bar")
+				.style("left", function (d, i) {
+					return (i * (barW - 2)) + "px";
+				})
+				.style("width", (barW - 3) + "px")
+				.style("background", function (d, i) {
 
-		Do something with GeoJSON?
+						var h = 200,
+							s = Math.round(d / datasetMax * 100) + "%",
+							l = "70%";
 
-		var geodata = {
-		    "type": "FeatureCollection",
-		    "features": [
-		        {
-		            "type": "Feature",
-		            "geometry": {
-		                "type": "Point",
-		                "coordinates": [ 150.1282427, -24.471803 ]
-		            },
-		            "properties": {
-		                "type": "town"
-		            }
-		        }
-		    ]
-		};
+						str = "hsl(" + [h, s, l].join(", ") + ")";
+						console.log(str);
+						return str;
+				});
+		}
+	}
 
-	    */
+	function changeData () {
+		var barGraph = d3.select(".bar-graph"),
+			randomData = [];
 
-}(jQuery));
+		for ( var i = 0; i < 26; i ++ ) {
+			randomData.push(Math.round(Math.random()* 30));
+		}
+
+		if ( !barGraph.empty() ) {
+			barGraph.selectAll("div")
+				.data(randomData)
+				.enter();
+		}
+	}
+
+	function animateBars () {
+		var barGraph = d3.select(".bar-graph");
+		if ( !barGraph.empty() ) {
+			barGraph.selectAll("div")
+				.transition()
+				.delay(function (d, i) {
+					return i * 100;
+				})
+				.duration(100)
+				.ease("elastic")
+				.style("height", function(d){
+					return (d / datasetMax * h) + "px";
+				})
+				.style("background", function (d, i) {
+
+						var h = 10,
+							s = Math.round(d / datasetMax * 100) + "%",
+							l = "30%";
+
+						str = "hsl(" + [h, s, l].join(", ") + ")";
+						console.log(str);
+						return str;
+				});
+		}
+	}
+
+	// clickedy
+	btn.addEventListener("click", function () {
+		buildGraph();
+		animateBars();
+	});
+	dataBtn.addEventListener("click", function () {
+		changeData();
+		animateBars();
+	});
+
+}());

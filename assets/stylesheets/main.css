@@ -1,0 +1,15 @@
+.bar {
+  float: left;
+  -webkit-transition: height 500ms ease-out 1s;
+  -moz-transition: height 500ms ease-out 1s;
+  -o-transition: height 500ms ease-out 1s;
+  transition: height 500ms ease-out 1s;
+  position: absolute;
+  bottom: 0;
+  background: #fff; }
+
+.bar-graph {
+  margin-top: 1em;
+  position: relative;
+  height: 200px;
+  background: #eee; }
